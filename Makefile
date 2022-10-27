@@ -1,6 +1,6 @@
 #!/usr/bin/env make
 
-.PHONY: run_website stop_website run_local_registry create_kind_cluster remove_kind_cluster connect_registry_to_kind connect_registry_to_kind_network create_kind_cluster_with_registry build_website port_forward
+.PHONY: run_website stop_website run_local_registry create_kind_cluster remove_kind_cluster connect_registry_to_kind connect_registry_to_kind_network create_kind_cluster_with_registry build_website port_forward teardown
 
 build_website:
 	docker build -t website.com . && \
@@ -40,3 +40,10 @@ create_kind_cluster_with_registry:
 
 port_forward:
 	kubectl port-forward deployment/website.com 8080:80
+
+deploy_website:
+	kubectl apply -f deployment.yaml
+	kubectl apply -f service.yaml
+
+teardown: stop_local_registry remove_kind_cluster
+	echo 'teardown'
