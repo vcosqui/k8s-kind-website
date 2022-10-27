@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: website.com
+  name: website.com
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: website.com
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: website.com
+    spec:
+      containers:
+      - image: localhost:5000/website.com
+        name: website-com-d9p7s
+        resources: {}
+status: {}
