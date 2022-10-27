@@ -39,7 +39,7 @@ create_kind_cluster_with_registry:
 	$(MAKE) create_kind_cluster && $(MAKE) connect_registry_to_kind
 
 port_forward:
-	kubectl port-forward deployment/website.com 8080:80
+	kubectl port-forward service/website-svc 8080:80
 
 deploy_website:
 	kubectl apply -f deployment.yaml
