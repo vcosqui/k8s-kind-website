@@ -1,6 +1,8 @@
 #!/usr/bin/env make
 
-.PHONY: run_website stop_website run_local_registry create_kind_cluster remove_kind_cluster connect_registry_to_kind connect_registry_to_kind_network create_kind_cluster_with_registry build_website port_forward teardown
+.PHONY: run_website stop_website run_local_registry create_kind_cluster remove_kind_cluster connect_registry_to_kind \
+connect_registry_to_kind_network create_kind_cluster_with_registry build_website port_forward teardown \
+kind_nginx_ingress deploy_ingress
 
 build_website:
 	docker build -t website.com . && \
@@ -47,3 +49,9 @@ deploy_website:
 
 teardown: stop_local_registry remove_kind_cluster
 	echo 'teardown'
+
+kind_nginx_ingress:
+	kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/kind/deploy.yaml
+
+deploy_website_ingress:
+	kubectl apply -f ingress.yaml
